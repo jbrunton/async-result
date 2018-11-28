@@ -11,11 +11,12 @@ title: AsyncResult
 sealed class AsyncResult<out T> {
     data class Success<T>(val value: T)
     data class Loading<T>(val cachedValue: T? = null)
-    data class Failure<T>(val error: Throwable, val cachedValue: T? = null)
+    data class Failure<T>(val error: Throwable,
+                          val cachedValue: T? = null)
 }
 ```
 
-This is a fairly standard pattern: see for example Kotlin's own [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html) type. The key additions provided by `AsyncResult` are:
+This is a fairly standard pattern: see for example Kotlin's own [Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html) type. The key improvements provided by `AsyncResult` are:
 
 1. A third possible value `AsyncResult.Loading` so that loading states do not have to be treated as special cases when processing results.
 2. `AsyncResult.Loading` and `AsyncResult.Failure` values may carry cached values.
@@ -23,11 +24,12 @@ This is a fairly standard pattern: see for example Kotlin's own [Result](https:/
 
 # A simple example
 
-Here's a fairly standard scenario when making an http request:
+Here's a fairly standard scenario when making an HTTP request:
 
 1. If a response is returned, transform it into an appropriate view state for the app.
-2. If the app experiences a network error, show a "No Connection" empty state with an option for the user to try again if there's no cached value.
-3. On network errors, if there is a cached value, show that instead of the empty state.
+2. While loading, show the cached value if there is one.
+3. If the app experiences a network error, show a "No Connection" empty state with an option for the user to try again if there's no cached value.
+4. On network errors, if there is a cached value, show that instead of the empty state.
 
 ```kotlin
 fun handleResult(result: AsyncResult<MyData>): MyViewState
@@ -52,11 +54,11 @@ We can also filter on more specific errors. For example, consider this scenario:
 fun handleResult(result: AsyncResult<Account>): MyViewState
   return result
       .map { AccountViewState.from(it) }
-      .onError(IOException::class) {
-        map { showSnackbar() }
-      }
       .onError(HttpException::class) {
         map { SignedOutViewState } whenever { it.code() == 401 }
+      }
+      .onError(IOException::class) {
+        map { showSnackbar() }
       }
 }
 ```
