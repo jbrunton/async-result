@@ -150,59 +150,67 @@ fun <S, T> AsyncResult<S>.map(transform: (S) -> T): AsyncResult<T> {
     }
 }
 
+fun <S, T> AsyncResult<T>.fold(
+        onSuccess: (AsyncResult.Success<T>) -> S,
+        onLoading: (AsyncResult.Loading<T>) -> S,
+        onFailure: (AsyncResult.Failure<T>) -> S
+): S {
+    return when (this) {
+        is AsyncResult.Success -> onSuccess(this)
+        is AsyncResult.Loading -> onLoading(this)
+        is AsyncResult.Failure -> onFailure(this)
+    }
+}
+
+val <T> AsyncResult<T>.Identity: (AsyncResult<T>) -> AsyncResult<T>
+    get() = { this }
+
 /**
  * If `this` is `AsyncResult.Success` returns the result of applying `transform` to `this`. Otherwise just returns
  * `this`.
  */
-fun <T> AsyncResult<T>.onSuccess(transform: (AsyncResult.Success<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return when (this) {
-        is AsyncResult.Success -> transform(this)
-        else -> this
-    }
+fun <T> AsyncResult<T>.onSuccess(onSuccess: (AsyncResult.Success<T>) -> AsyncResult<T>): AsyncResult<T> {
+    return fold(onSuccess, Identity, Identity)
 }
 
 /**
  * If `this` is `AsyncResult.Loading` returns the result of applying `transform` to `this`. Otherwise just returns
  * `this`.
  */
-fun <T> AsyncResult<T>.onLoading(transform: (AsyncResult.Loading<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return when (this) {
-        is AsyncResult.Loading -> transform(this)
-        else -> this
-    }
+fun <T> AsyncResult<T>.onLoading(onLoading: (AsyncResult.Loading<T>) -> AsyncResult<T>): AsyncResult<T> {
+    return fold(Identity, onLoading, Identity)
 }
 
 /**
  * If `this` is `AsyncResult.Failure` returns the result of applying `transform` to `this`. Otherwise just returns
  * `this`.
  */
-
-fun <T> AsyncResult<T>.onFailure(transform: (AsyncResult.Failure<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return when (this) {
-        is AsyncResult.Failure -> transform(this)
-        else -> this
-    }
+fun <T> AsyncResult<T>.onFailure(onFailure: (AsyncResult.Failure<T>) -> AsyncResult<T>): AsyncResult<T> {
+    return fold(Identity, Identity, onFailure)
 }
 
 /**
  * If `this` is `AsyncResult.Success` then invokes `action` on `this`. Otherwise does nothing.
  */
 fun <T> AsyncResult<T>.doOnSuccess(action: (AsyncResult.Success<T>) -> Unit): AsyncResult<T> {
-    return onSuccess { action(it); it }
+    fold(action, {}, {})
+    return this
 }
 
 /**
  * If `this` is `AsyncResult.Loading` then invokes `action` on `this`. Otherwise does nothing.
  */
 fun <T> AsyncResult<T>.doOnLoading(action: (AsyncResult.Loading<T>) -> Unit): AsyncResult<T> {
-    return onLoading { action(it); it }
+    fold({}, action, {})
+    return this
 }
 
 /**
  * If `this` is `AsyncResult.Failure` then invokes `action` on `this`. Otherwise does nothing.
  */
 fun <T> AsyncResult<T>.doOnFailure(action: (AsyncResult.Failure<T>) -> Unit): AsyncResult<T> {
-    return onFailure{ action(it); it }
+    fold({}, {}, action)
+    return this
 }
 
 /**
@@ -257,3 +265,5 @@ class ErrorHandler<T, E: Throwable>(val klass: KClass<E>) {
         }
     }
 }
+
+fun <T> AsyncResult<T>.Identity() = { this }
