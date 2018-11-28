@@ -33,9 +33,7 @@ Here's a fairly standard scenario when making an http request:
 fun handleResult(result: AsyncResult<MyData>): MyViewState
   return result
       .map { MyViewState.from(it) }
-      .onLoading {
-        it.useCachedValue()
-      }
+      .onLoading { it.useCachedValue() }
       .onError(IOException::class) {
         map { it.useCachedValue().or(NoConnectionViewState) }
       }
@@ -54,8 +52,10 @@ We can also filter on more specific errors. For example, consider this scenario:
 fun handleResult(result: AsyncResult<Account>): MyViewState
   return result
       .map { AccountViewState.from(it) }
-      .doOnNetworkError{ showSnackbar() }
       .onError(IOException::class) {
+        map { showSnackbar() }
+      }
+      .onError(HttpException::class) {
         map { SignedOutViewState } whenever { it.code() == 401 }
       }
 }
