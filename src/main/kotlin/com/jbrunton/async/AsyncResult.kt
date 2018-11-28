@@ -162,16 +162,13 @@ fun <S, T> AsyncResult<T>.fold(
     }
 }
 
-val <T> AsyncResult<T>.Identity: (AsyncResult<T>) -> AsyncResult<T>
-    get() = { this }
-
 /**
  * If `this` is `AsyncResult.Success` returns the result of applying `transform` to `this`. Otherwise just returns
  * `this`.
  */
 fun <T> AsyncResult<T>.onSuccess(
         onSuccess: (AsyncResult.Success<T>) -> AsyncResult<T>
-) = fold(onSuccess, Identity, Identity)
+) = fold(onSuccess, { it }, { it })
 
 /**
  * If `this` is `AsyncResult.Loading` returns the result of applying `transform` to `this`. Otherwise just returns
@@ -179,7 +176,7 @@ fun <T> AsyncResult<T>.onSuccess(
  */
 fun <T> AsyncResult<T>.onLoading(
         onLoading: (AsyncResult.Loading<T>) -> AsyncResult<T>
-) = fold(Identity, onLoading, Identity)
+) = fold({ it }, onLoading, { it })
 
 /**
  * If `this` is `AsyncResult.Failure` returns the result of applying `transform` to `this`. Otherwise just returns
@@ -187,7 +184,7 @@ fun <T> AsyncResult<T>.onLoading(
  */
 fun <T> AsyncResult<T>.onFailure(
         onFailure: (AsyncResult.Failure<T>) -> AsyncResult<T>
-) = fold(Identity, Identity, onFailure)
+) = fold({ it }, { it }, onFailure)
 
 /**
  * If `this` is `AsyncResult.Success` then invokes `action` on `this`. Otherwise does nothing.
