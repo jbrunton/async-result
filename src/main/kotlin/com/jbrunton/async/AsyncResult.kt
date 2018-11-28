@@ -4,9 +4,17 @@ import kotlin.reflect.KClass
 
 sealed class AsyncResult<out T> {
     data class Success<T>(val value: T): AsyncResult<T>()
-    data class Failure<T>(val error: Throwable, val cachedValue: T? = null): AsyncResult<T>()
     data class Loading<T>(val cachedValue: T? = null): AsyncResult<T>()
+    data class Failure<T>(val error: Throwable, val cachedValue: T? = null): AsyncResult<T>()
+
+    companion object {
+        fun <T> success(value: T) = AsyncResult.Success(value)
+        fun <T> loading(cachedValue: T?) = AsyncResult.Loading(cachedValue)
+        fun <T> failure(error: Throwable, cachedValue: T? = null) = AsyncResult.Failure(error, cachedValue)
+    }
 }
+
+
 
 fun <T> AsyncResult<T>.get(): T {
     return when (this) {
@@ -27,6 +35,26 @@ fun <T> AsyncResult<T>.getOr(defaultValue: T): T {
 fun <T> AsyncResult<T>.getOrNull(): T? {
     return getOr(null)
 }
+
+fun <T> AsyncResult.Loading<T>.useCachedValueOr(defaultResult: AsyncResult<T>): AsyncResult<T> {
+    return if (cachedValue == null) {
+        defaultResult
+    } else {
+        AsyncResult.success(cachedValue)
+    }
+}
+
+fun <T> AsyncResult.Failure<T>.useCachedValueOr(defaultResult: AsyncResult<T>): AsyncResult<T> {
+    return if (cachedValue == null) {
+        defaultResult
+    } else {
+        AsyncResult.success(cachedValue)
+    }
+}
+
+fun <T> AsyncResult.Loading<T>.useCachedValue(): AsyncResult<T> = useCachedValueOr(this)
+
+fun <T> AsyncResult.Failure<T>.useCachedValue(): AsyncResult<T> = useCachedValueOr(this)
 
 fun <S, T, U> AsyncResult<S>.zipWith(other: AsyncResult<T>, transform: (S, T) -> U): AsyncResult<U> {
     if (this is AsyncResult.Success && other is AsyncResult.Success) {

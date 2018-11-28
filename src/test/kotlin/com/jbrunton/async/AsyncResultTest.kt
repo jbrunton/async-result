@@ -185,15 +185,33 @@ class AsyncResultTest {
         assertThat(result).isEqualTo(AsyncResult.Loading(6))
     }
 
-    private fun success(value: Int): AsyncResult<Int> {
+    @Test
+    fun returnsCachedValues() {
+        val loadingResult = loading(cachedValue)
+        val loadingFailure = failure(error, cachedValue)
+
+        assertThat(loadingResult.useCachedValue()).isEqualTo(success(cachedValue))
+        assertThat(loadingFailure.useCachedValue()).isEqualTo(success(cachedValue))
+    }
+
+    @Test
+    fun returnsSelfWhenNoCachedValues() {
+        val loadingResult = loading(null)
+        val loadingFailure = failure(error, null)
+
+        assertThat(loadingResult.useCachedValue()).isEqualTo(loadingResult)
+        assertThat(loadingFailure.useCachedValue()).isEqualTo(loadingFailure)
+    }
+
+    private fun success(value: Int): AsyncResult.Success<Int> {
         return AsyncResult.Success(value)
     }
 
-    private fun loading(cachedValue: Int?): AsyncResult<Int> {
+    private fun loading(cachedValue: Int?): AsyncResult.Loading<Int> {
         return AsyncResult.Loading(cachedValue)
     }
 
-    private fun failure(error: Throwable, cachedValue: Int?): AsyncResult<Int> {
+    private fun failure(error: Throwable, cachedValue: Int?): AsyncResult.Failure<Int> {
         return AsyncResult.Failure(error, cachedValue)
     }
 }
