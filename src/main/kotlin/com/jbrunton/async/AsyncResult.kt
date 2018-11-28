@@ -269,5 +269,3 @@ class ErrorHandler<T, E: Throwable>(val klass: KClass<E>) {
         }
     }
 }
-
-fun <T> AsyncResult<T>.Identity() = { this }
