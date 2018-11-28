@@ -36,25 +36,21 @@ fun <T> AsyncResult<T>.getOrNull(): T? {
     return getOr(null)
 }
 
-fun <T> AsyncResult.Loading<T>.useCachedValueOr(defaultResult: AsyncResult<T>): AsyncResult<T> {
-    return if (cachedValue == null) {
-        defaultResult
+fun <T> AsyncResult<T>.useCachedValue(): AsyncResult<T> {
+    val cachedValue = getOrNull()
+    if (cachedValue == null) {
+        return this
     } else {
-        AsyncResult.success(cachedValue)
+        return AsyncResult.success(cachedValue)
     }
 }
 
-fun <T> AsyncResult.Failure<T>.useCachedValueOr(defaultResult: AsyncResult<T>): AsyncResult<T> {
-    return if (cachedValue == null) {
-        defaultResult
-    } else {
-        AsyncResult.success(cachedValue)
+fun <T> AsyncResult<T>.or(other: AsyncResult<T>): AsyncResult<T> {
+    return when (this) {
+        is AsyncResult.Success -> this
+        else -> other
     }
 }
-
-fun <T> AsyncResult.Loading<T>.useCachedValue(): AsyncResult<T> = useCachedValueOr(this)
-
-fun <T> AsyncResult.Failure<T>.useCachedValue(): AsyncResult<T> = useCachedValueOr(this)
 
 fun <S, T, U> AsyncResult<S>.zipWith(other: AsyncResult<T>, transform: (S, T) -> U): AsyncResult<U> {
     if (this is AsyncResult.Success && other is AsyncResult.Success) {

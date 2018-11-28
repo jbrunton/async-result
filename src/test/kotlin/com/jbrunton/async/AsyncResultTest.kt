@@ -188,19 +188,25 @@ class AsyncResultTest {
     @Test
     fun returnsCachedValues() {
         val loadingResult = loading(cachedValue)
-        val loadingFailure = failure(error, cachedValue)
+        val failureResult = failure(error, cachedValue)
 
         assertThat(loadingResult.useCachedValue()).isEqualTo(success(cachedValue))
-        assertThat(loadingFailure.useCachedValue()).isEqualTo(success(cachedValue))
+        assertThat(failureResult.useCachedValue()).isEqualTo(success(cachedValue))
     }
 
     @Test
     fun returnsSelfWhenNoCachedValues() {
         val loadingResult = loading(null)
-        val loadingFailure = failure(error, null)
+        val failureResult = failure(error, null)
 
         assertThat(loadingResult.useCachedValue()).isEqualTo(loadingResult)
-        assertThat(loadingFailure.useCachedValue()).isEqualTo(loadingFailure)
+        assertThat(failureResult.useCachedValue()).isEqualTo(failureResult)
+    }
+
+    @Test
+    fun testOrOperation() {
+        assertThat(loading(1).or(success(2))).isEqualTo(success(2))
+        assertThat(success(1).or(success(2))).isEqualTo(success(1))
     }
 
     private fun success(value: Int): AsyncResult.Success<Int> {
