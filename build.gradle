@@ -39,4 +39,5 @@ compileTestKotlin {
 dokka {
     outputFormat = 'html'
     outputDirectory = 'docs/dokka'
+    includes = ['src/main/kotlin/com/jbrunton/async/package-summary.md']
 }
