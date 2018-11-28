@@ -2,7 +2,25 @@ package com.jbrunton.async
 
 import kotlin.reflect.KClass
 
+/**
+ * A group of *members*.
+ *
+ * This class has no useful logic; it's just a documentation example.
+ *
+ * @param T the type of a member in this group.
+ * @property name the name of this group.
+ * @constructor Creates an empty group.
+ */
 sealed class AsyncResult<out T> {
+    /**
+     * A group of *members*.
+     *
+     * This class has no useful logic; it's just a documentation example.
+     *
+     * @param T the type of a member in this group.
+     * @property name the name of this group.
+     * @constructor Creates an empty group.
+     */
     data class Success<T>(val value: T): AsyncResult<T>()
     data class Loading<T>(val cachedValue: T? = null): AsyncResult<T>()
     data class Failure<T>(val error: Throwable, val cachedValue: T? = null): AsyncResult<T>()
