@@ -10,5 +10,12 @@
 <h1>getOr</h1>
 <a name="com.jbrunton.async$getOr(com.jbrunton.async.AsyncResult((com.jbrunton.async.getOr.T)), com.jbrunton.async.getOr.T)"></a>
 <code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="get-or.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getOr</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$getOr(com.jbrunton.async.AsyncResult((com.jbrunton.async.getOr.T)), com.jbrunton.async.getOr.T)/defaultValue">defaultValue</span><span class="symbol">:</span>&nbsp;<a href="get-or.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="get-or.html#T"><span class="identifier">T</span></a></code>
+<p>Returns the value of the result if it has one and the given <a href="get-or.html#com.jbrunton.async$getOr(com.jbrunton.async.AsyncResult((com.jbrunton.async.getOr.T)), com.jbrunton.async.getOr.T)/defaultValue">defaultValue</a> otherwise.</p>
+<ul><li>For <a href="-async-result/-success/index.html">AsyncResult.Success</a> this will be <a href="-async-result/-success/value.html">value</a>.</li>
+<li>For <a href="-async-result/-loading/index.html">AsyncResult.Loading</a> this will be <a href="-async-result/-loading/cached-value.html">cachedValue</a> if it exists and
+<a href="get-or.html#com.jbrunton.async$getOr(com.jbrunton.async.AsyncResult((com.jbrunton.async.getOr.T)), com.jbrunton.async.getOr.T)/defaultValue">defaultValue</a> otherwise.</li>
+<li>For <a href="-async-result/-failure/index.html">AsyncResult.Failure</a> this will be <a href="-async-result/-failure/cached-value.html">cachedValue</a> if it exists and
+<a href="get-or.html#com.jbrunton.async$getOr(com.jbrunton.async.AsyncResult((com.jbrunton.async.getOr.T)), com.jbrunton.async.getOr.T)/defaultValue">defaultValue</a> otherwise.</li>
+</ul>
 </BODY>
 </HTML>

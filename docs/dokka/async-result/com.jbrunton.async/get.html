@@ -10,5 +10,12 @@
 <h1>get</h1>
 <a name="com.jbrunton.async$get(com.jbrunton.async.AsyncResult((com.jbrunton.async.get.T)))"></a>
 <code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="get.html#T"><span class="identifier">T</span></a></code>
+<p>Returns the value of the result.</p>
+<ul><li>For <a href="-async-result/-success/index.html">AsyncResult.Success</a> this will be <a href="-async-result/-success/value.html">value</a>.</li>
+<li>For <a href="-async-result/-loading/index.html">AsyncResult.Loading</a> this will be <a href="-async-result/-loading/cached-value.html">cachedValue</a> if it is not null. Otherwise
+a NullPointerException will be thrown.</li>
+<li>For <a href="-async-result/-failure/index.html">AsyncResult.Failure</a> this will be <a href="-async-result/-failure/cached-value.html">cachedValue</a> if it is not null. Otherwise
+the <a href="-async-result/-failure/error.html">error</a> will be thrown.</li>
+</ul>
 </BODY>
 </HTML>

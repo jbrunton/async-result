@@ -10,5 +10,12 @@
 <h1>getOrNull</h1>
 <a name="com.jbrunton.async$getOrNull(com.jbrunton.async.AsyncResult((com.jbrunton.async.getOrNull.T)))"></a>
 <code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="get-or-null.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getOrNull</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="get-or-null.html#T"><span class="identifier">T</span></a><span class="symbol">?</span></code>
+<p>Returns the value of the result if it exists and null otherwise.</p>
+<ul><li>For <a href="-async-result/-success/index.html">AsyncResult.Success</a> this will be <a href="-async-result/-success/value.html">value</a>.</li>
+<li>For <a href="-async-result/-loading/index.html">AsyncResult.Loading</a> this will be <a href="-async-result/-loading/cached-value.html">cachedValue</a> if it exists and
+null otherwise.</li>
+<li>For <a href="-async-result/-failure/index.html">AsyncResult.Failure</a> this will be <a href="-async-result/-failure/cached-value.html">cachedValue</a> if it exists and
+null otherwise.</li>
+</ul>
 </BODY>
 </HTML>
