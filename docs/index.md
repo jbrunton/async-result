@@ -5,7 +5,7 @@ title: AsyncResult
 
 # What is this?
 
-`AsyncResult` is a monadic type for operating over values in an asynchronous environment. In essence:
+`AsyncResult` is a monadic type for operating over values representing the state in an asynchronous environment. In essence:
 
 ```
 sealed class AsyncResult<out T> {
