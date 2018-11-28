@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.jbrunton.async - async-result</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">async-result</a>&nbsp;/&nbsp;<a href="./index.html">com.jbrunton.async</a><br/>
+<br/>
+<h2>Package com.jbrunton.async</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-async-result/index.html">AsyncResult</a></p>
+</td>
+<td>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">AsyncResult</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>A group of <em>members</em>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-error-handler/index.html">ErrorHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ErrorHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="do-on-failure.html">doOnFailure</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="do-on-failure.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">doOnFailure</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$doOnFailure(com.jbrunton.async.AsyncResult((com.jbrunton.async.doOnFailure.T)), kotlin.Function1((com.jbrunton.async.AsyncResult.Failure((com.jbrunton.async.doOnFailure.T)), kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="-async-result/-failure/index.html"><span class="identifier">Failure</span></a><span class="symbol">&lt;</span><a href="do-on-failure.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="do-on-failure.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="do-on-loading.html">doOnLoading</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="do-on-loading.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">doOnLoading</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$doOnLoading(com.jbrunton.async.AsyncResult((com.jbrunton.async.doOnLoading.T)), kotlin.Function1((com.jbrunton.async.AsyncResult.Loading((com.jbrunton.async.doOnLoading.T)), kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="-async-result/-loading/index.html"><span class="identifier">Loading</span></a><span class="symbol">&lt;</span><a href="do-on-loading.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="do-on-loading.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="do-on-success.html">doOnSuccess</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="do-on-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">doOnSuccess</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$doOnSuccess(com.jbrunton.async.AsyncResult((com.jbrunton.async.doOnSuccess.T)), kotlin.Function1((com.jbrunton.async.AsyncResult.Success((com.jbrunton.async.doOnSuccess.T)), kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="-async-result/-success/index.html"><span class="identifier">Success</span></a><span class="symbol">&lt;</span><a href="do-on-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="do-on-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get.html">get</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="get.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">get</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="get.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-or.html">getOr</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="get-or.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getOr</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$getOr(com.jbrunton.async.AsyncResult((com.jbrunton.async.getOr.T)), com.jbrunton.async.getOr.T)/defaultValue">defaultValue</span><span class="symbol">:</span>&nbsp;<a href="get-or.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="get-or.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-or-null.html">getOrNull</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="get-or-null.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">getOrNull</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="get-or-null.html#T"><span class="identifier">T</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="map.html">map</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">S</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="map.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">map</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$map(com.jbrunton.async.AsyncResult((com.jbrunton.async.map.S)), kotlin.Function1((com.jbrunton.async.map.S, com.jbrunton.async.map.T)))/transform">transform</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="map.html#S"><span class="identifier">S</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="map.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="map.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-error.html">onError</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-error.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">onError</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$onError(com.jbrunton.async.AsyncResult((com.jbrunton.async.onError.T)), kotlin.reflect.KClass((com.jbrunton.async.onError.E)), kotlin.Function1((com.jbrunton.async.ErrorHandler((com.jbrunton.async.onError.T, com.jbrunton.async.onError.E)), kotlin.Unit)))/klass">klass</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="on-error.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.jbrunton.async$onError(com.jbrunton.async.AsyncResult((com.jbrunton.async.onError.T)), kotlin.reflect.KClass((com.jbrunton.async.onError.E)), kotlin.Function1((com.jbrunton.async.ErrorHandler((com.jbrunton.async.onError.T, com.jbrunton.async.onError.E)), kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<a href="-error-handler/index.html"><span class="identifier">ErrorHandler</span></a><span class="symbol">&lt;</span><a href="on-error.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="on-error.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-error.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-failure.html">onFailure</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-failure.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">onFailure</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$onFailure(com.jbrunton.async.AsyncResult((com.jbrunton.async.onFailure.T)), kotlin.Function1((com.jbrunton.async.AsyncResult.Failure((com.jbrunton.async.onFailure.T)), com.jbrunton.async.AsyncResult(()))))/transform">transform</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="-async-result/-failure/index.html"><span class="identifier">Failure</span></a><span class="symbol">&lt;</span><a href="on-failure.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-failure.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-failure.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-loading.html">onLoading</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-loading.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">onLoading</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$onLoading(com.jbrunton.async.AsyncResult((com.jbrunton.async.onLoading.T)), kotlin.Function1((com.jbrunton.async.AsyncResult.Loading((com.jbrunton.async.onLoading.T)), com.jbrunton.async.AsyncResult(()))))/transform">transform</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="-async-result/-loading/index.html"><span class="identifier">Loading</span></a><span class="symbol">&lt;</span><a href="on-loading.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-loading.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-loading.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-success.html">onSuccess</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">onSuccess</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$onSuccess(com.jbrunton.async.AsyncResult((com.jbrunton.async.onSuccess.T)), kotlin.Function1((com.jbrunton.async.AsyncResult.Success((com.jbrunton.async.onSuccess.T)), com.jbrunton.async.AsyncResult(()))))/transform">transform</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="-async-result/-success/index.html"><span class="identifier">Success</span></a><span class="symbol">&lt;</span><a href="on-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="on-success.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="or.html">or</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="or.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">or</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$or(com.jbrunton.async.AsyncResult((com.jbrunton.async.or.T)), com.jbrunton.async.AsyncResult((com.jbrunton.async.or.T)))/other">other</span><span class="symbol">:</span>&nbsp;<a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="or.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="or.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="use-cached-value.html">useCachedValue</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="use-cached-value.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">useCachedValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="use-cached-value.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="zip-with.html">zipWith</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">S</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">U</span><span class="symbol">&gt;</span> <a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="zip-with.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">zipWith</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async$zipWith(com.jbrunton.async.AsyncResult((com.jbrunton.async.zipWith.S)), com.jbrunton.async.AsyncResult((com.jbrunton.async.zipWith.T)), kotlin.Function2((com.jbrunton.async.zipWith.S, com.jbrunton.async.zipWith.T, com.jbrunton.async.zipWith.U)))/other">other</span><span class="symbol">:</span>&nbsp;<a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="zip-with.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.jbrunton.async$zipWith(com.jbrunton.async.AsyncResult((com.jbrunton.async.zipWith.S)), com.jbrunton.async.AsyncResult((com.jbrunton.async.zipWith.T)), kotlin.Function2((com.jbrunton.async.zipWith.S, com.jbrunton.async.zipWith.T, com.jbrunton.async.zipWith.U)))/transform">transform</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="zip-with.html#S"><span class="identifier">S</span></a><span class="symbol">,</span>&nbsp;<a href="zip-with.html#T"><span class="identifier">T</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="zip-with.html#U"><span class="identifier">U</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="zip-with.html#U"><span class="identifier">U</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

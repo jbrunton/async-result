@@ -37,30 +37,6 @@ compileTestKotlin {
 }
 
 dokka {
-    outputFormat = 'jekyll'
-    outputDirectory = "$buildDir/dokka"
-}
-
-task copyDocs(type: Copy) {
-    from("$buildDir/dokka") {
-        include '**/*.md'
-    }
-    into 'docs/dokka'
-}
-
-task addJekyllHeaders {
-    doLast {
-        fileTree("docs/dokka").each {
-            def dokkaFile = it
-            println "found $dokkaFile"
-
-            def jekyllLines = dokkaFile.readLines()
-                .plus(0, "---")
-                .plus(1, "layout: default")
-                .plus(2, "---")
-
-            def jekyllContent = jekyllLines.join('\n')
-            dokkaFile.write(jekyllContent)
-        }
-    }
+    outputFormat = 'html'
+    outputDirectory = "docs/dokka"
 }
