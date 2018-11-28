@@ -151,58 +151,70 @@ fun <S, T> AsyncResult<S>.map(transform: (S) -> T): AsyncResult<T> {
 }
 
 /**
- * If `this` is `AsyncResult.Success` returns the result of applying `transform` to `this`. Otherwise just returns
- * `this`.
+ * Returns the result of `onSuccess` if the result is [AsyncResult.Success], the result of `onLoading` if the result is
+ * [AsyncResult.Loading], and the result of `onFailure` if the result is [AsyncResult.Failure].
  */
-fun <T> AsyncResult<T>.onSuccess(transform: (AsyncResult.Success<T>) -> AsyncResult<T>): AsyncResult<T> {
+fun <S, T> AsyncResult<T>.bind(
+        onSuccess: (AsyncResult.Success<T>) -> S,
+        onLoading: (AsyncResult.Loading<T>) -> S,
+        onFailure: (AsyncResult.Failure<T>) -> S
+): S {
     return when (this) {
-        is AsyncResult.Success -> transform(this)
-        else -> this
+        is AsyncResult.Success -> onSuccess(this)
+        is AsyncResult.Loading -> onLoading(this)
+        is AsyncResult.Failure -> onFailure(this)
     }
 }
 
 /**
- * If `this` is `AsyncResult.Loading` returns the result of applying `transform` to `this`. Otherwise just returns
- * `this`.
+ * Returns the result of `onSuccess` if the result is [AsyncResult.Success]. Otherwise returns the result unchanged.
  */
-fun <T> AsyncResult<T>.onLoading(transform: (AsyncResult.Loading<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return when (this) {
-        is AsyncResult.Loading -> transform(this)
-        else -> this
-    }
+fun <T> AsyncResult<T>.onSuccess(
+        onSuccess: (AsyncResult.Success<T>) -> AsyncResult<T>
+) = bind(onSuccess, { it }, { it })
+
+/**
+ * Returns the result of `onLoading` if the result is [AsyncResult.Loading]. Otherwise returns the result unchanged.
+ */
+fun <T> AsyncResult<T>.onLoading(
+        onLoading: (AsyncResult.Loading<T>) -> AsyncResult<T>
+) = bind({ it }, onLoading, { it })
+
+/**
+ * Returns the result of `onFailure` if the result is [AsyncResult.Failure]. Otherwise returns the result unchanged.
+ */
+fun <T> AsyncResult<T>.onFailure(
+        onFailure: (AsyncResult.Failure<T>) -> AsyncResult<T>
+) = bind({ it }, { it }, onFailure)
+
+/**
+ * Performs `action` if the result is [AsyncResult.Success]. Returns the original result unchanged.
+ */
+fun <T> AsyncResult<T>.doOnSuccess(
+        action: (AsyncResult.Success<T>) -> Unit): AsyncResult<T>
+{
+    bind(action, {}, {})
+    return this
 }
 
 /**
- * If `this` is `AsyncResult.Failure` returns the result of applying `transform` to `this`. Otherwise just returns
- * `this`.
+ * Performs `action` if the result is [AsyncResult.Loading]. Returns the original result unchanged.
  */
-
-fun <T> AsyncResult<T>.onFailure(transform: (AsyncResult.Failure<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return when (this) {
-        is AsyncResult.Failure -> transform(this)
-        else -> this
-    }
+fun <T> AsyncResult<T>.doOnLoading(
+        action: (AsyncResult.Loading<T>) -> Unit): AsyncResult<T>
+{
+    bind({}, action, {})
+    return this
 }
 
 /**
- * If `this` is `AsyncResult.Success` then invokes `action` on `this`. Otherwise does nothing.
+ * Performs `action` if the result is [AsyncResult.Failure]. Returns the original result unchanged.
  */
-fun <T> AsyncResult<T>.doOnSuccess(action: (AsyncResult.Success<T>) -> Unit): AsyncResult<T> {
-    return onSuccess { action(it); it }
-}
-
-/**
- * If `this` is `AsyncResult.Loading` then invokes `action` on `this`. Otherwise does nothing.
- */
-fun <T> AsyncResult<T>.doOnLoading(action: (AsyncResult.Loading<T>) -> Unit): AsyncResult<T> {
-    return onLoading { action(it); it }
-}
-
-/**
- * If `this` is `AsyncResult.Failure` then invokes `action` on `this`. Otherwise does nothing.
- */
-fun <T> AsyncResult<T>.doOnFailure(action: (AsyncResult.Failure<T>) -> Unit): AsyncResult<T> {
-    return onFailure{ action(it); it }
+fun <T> AsyncResult<T>.doOnFailure(
+        action: (AsyncResult.Failure<T>) -> Unit
+): AsyncResult<T> {
+    bind({}, {}, action)
+    return this
 }
 
 /**
@@ -257,3 +269,5 @@ class ErrorHandler<T, E: Throwable>(val klass: KClass<E>) {
         }
     }
 }
+
+fun <T> AsyncResult<T>.Identity() = { this }
