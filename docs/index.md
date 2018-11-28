@@ -7,7 +7,7 @@ title: AsyncResult
 
 `AsyncResult` is a monadic type for operating over values representing the state in an asynchronous environment. In essence:
 
-```
+```kotlin
 sealed class AsyncResult<out T> {
     data class Success<T>(val value: T)
     data class Loading<T>(val cachedValue: T? = null)
