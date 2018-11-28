@@ -38,5 +38,5 @@ compileTestKotlin {
 
 dokka {
     outputFormat = 'html'
-    outputDirectory = "docs/dokka"
+    outputDirectory = 'docs/dokka'
 }

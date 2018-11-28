@@ -3,7 +3,12 @@ layout: default
 title: AsyncResult
 ---
 
-# What is this?
+<a href="#what-is-this">What is this?</a> &middot;
+<a href="#a-simple-example">A simple example</a> &middot;
+<a href="#getting-started">Getting started</a> &middot;
+<a href="#documentation">Documentation</a>
+
+## What is this?
 
 `AsyncResult` is a monadic type for operating over values representing the state in an asynchronous environment. In essence:
 
@@ -22,7 +27,7 @@ This is a fairly standard pattern: see for example Kotlin's own [Result](https:/
 2. `AsyncResult.Loading` and `AsyncResult.Failure` values may carry cached values.
 3. The library includes methods to support transformations over the type, to greatly simplify the writing of pure functional pipelines that can convert results into any arbitrary interface or action.
 
-# A simple example
+## A simple example
 
 Here's a fairly standard scenario when making an HTTP request:
 
@@ -42,7 +47,7 @@ fun handleResult(result: AsyncResult<MyData>): MyViewState
 }
 ```
 
-# Filtering errors
+## Filtering errors
 
 We can also filter on more specific errors. For example, consider this scenario:
 
@@ -62,3 +67,28 @@ fun handleResult(result: AsyncResult<Account>): MyViewState
       }
 }
 ```
+
+## Getting started
+
+First make sure you're using [Jitpack](https://jitpack.io/) by adding it as a repository:
+
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Then add the `async-result` artifact as a dependency to your build file:
+
+```groovy
+dependencies {
+    implementation 'com.github.jbrunton:async-result:VERSION'
+}
+```
+
+## Documentation
+
+For more details see [the docs](dokka/async-result).
