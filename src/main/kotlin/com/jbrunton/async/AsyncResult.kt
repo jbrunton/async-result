@@ -150,7 +150,7 @@ fun <S, T> AsyncResult<S>.map(transform: (S) -> T): AsyncResult<T> {
     }
 }
 
-inline fun <S, T> AsyncResult<T>.fold(
+fun <S, T> AsyncResult<T>.fold(
         onSuccess: (AsyncResult.Success<T>) -> S,
         onLoading: (AsyncResult.Loading<T>) -> S,
         onFailure: (AsyncResult.Failure<T>) -> S
@@ -162,11 +162,8 @@ inline fun <S, T> AsyncResult<T>.fold(
     }
 }
 
-private val <T> AsyncResult<T>.Identity: (AsyncResult<T>) -> AsyncResult<T>
+val <T> AsyncResult<T>.Identity: (AsyncResult<T>) -> AsyncResult<T>
     get() = { this }
-
-private val <T> AsyncResult<T>.Nothing: (AsyncResult<T>) -> Unit
-    get() = {}
 
 /**
  * If `this` is `AsyncResult.Success` returns the result of applying `transform` to `this`. Otherwise just returns
@@ -198,7 +195,7 @@ fun <T> AsyncResult<T>.onFailure(
 fun <T> AsyncResult<T>.doOnSuccess(
         action: (AsyncResult.Success<T>) -> Unit): AsyncResult<T>
 {
-    fold(action, Nothing, Nothing)
+    fold(action, {}, {})
     return this
 }
 
@@ -208,7 +205,7 @@ fun <T> AsyncResult<T>.doOnSuccess(
 fun <T> AsyncResult<T>.doOnLoading(
         action: (AsyncResult.Loading<T>) -> Unit): AsyncResult<T>
 {
-    fold(Nothing, action, Nothing)
+    fold({}, action, {})
     return this
 }
 
@@ -218,7 +215,7 @@ fun <T> AsyncResult<T>.doOnLoading(
 fun <T> AsyncResult<T>.doOnFailure(
         action: (AsyncResult.Failure<T>) -> Unit
 ): AsyncResult<T> {
-    fold(Nothing, Nothing, action)
+    fold({}, {}, action)
     return this
 }
 
@@ -275,3 +272,4 @@ class ErrorHandler<T, E: Throwable>(val klass: KClass<E>) {
     }
 }
 
+fun <T> AsyncResult<T>.Identity() = { this }
