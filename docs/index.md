@@ -21,6 +21,7 @@ This is a fairly standard pattern: see for example Kotlin's own [Result](https:/
 3. The library includes methods to support transformations over the type, to greatly simplify the writing of pure functional pipelines that can convert results into any arbitrary interface or action.
 
 # A simple example
+
 Here's a fairly standard scenario when making an http request:
 
 1. If a response is returned, transform it into an appropriate view state for the app.
@@ -41,3 +42,20 @@ fun handleResult(result: AsyncResult<MyData>): MyViewState
 ```
 
 # Filtering errors
+
+We can also filter on more specific errors. For example, consider this scenario:
+
+1. If the user is authenticated, show account details.
+2. If the user got their credentials wrong, show the login state again.
+3. If there's a network error, show a Snackbar.
+
+```kotlin
+fun handleResult(result: AsyncResult<Account>): MyViewState
+  return result
+      .map { AccountViewState.from(it) }
+      .doOnNetworkError{ showSnackbar() }
+      .onError(IOException::class) {
+        map { SignedOutViewState } whenever { it.code() == 401 }
+      }
+}
+```
