@@ -169,30 +169,32 @@ val <T> AsyncResult<T>.Identity: (AsyncResult<T>) -> AsyncResult<T>
  * If `this` is `AsyncResult.Success` returns the result of applying `transform` to `this`. Otherwise just returns
  * `this`.
  */
-fun <T> AsyncResult<T>.onSuccess(onSuccess: (AsyncResult.Success<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return fold(onSuccess, Identity, Identity)
-}
+fun <T> AsyncResult<T>.onSuccess(
+        onSuccess: (AsyncResult.Success<T>) -> AsyncResult<T>
+) = fold(onSuccess, Identity, Identity)
 
 /**
  * If `this` is `AsyncResult.Loading` returns the result of applying `transform` to `this`. Otherwise just returns
  * `this`.
  */
-fun <T> AsyncResult<T>.onLoading(onLoading: (AsyncResult.Loading<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return fold(Identity, onLoading, Identity)
-}
+fun <T> AsyncResult<T>.onLoading(
+        onLoading: (AsyncResult.Loading<T>) -> AsyncResult<T>
+) = fold(Identity, onLoading, Identity)
 
 /**
  * If `this` is `AsyncResult.Failure` returns the result of applying `transform` to `this`. Otherwise just returns
  * `this`.
  */
-fun <T> AsyncResult<T>.onFailure(onFailure: (AsyncResult.Failure<T>) -> AsyncResult<T>): AsyncResult<T> {
-    return fold(Identity, Identity, onFailure)
-}
+fun <T> AsyncResult<T>.onFailure(
+        onFailure: (AsyncResult.Failure<T>) -> AsyncResult<T>
+) = fold(Identity, Identity, onFailure)
 
 /**
  * If `this` is `AsyncResult.Success` then invokes `action` on `this`. Otherwise does nothing.
  */
-fun <T> AsyncResult<T>.doOnSuccess(action: (AsyncResult.Success<T>) -> Unit): AsyncResult<T> {
+fun <T> AsyncResult<T>.doOnSuccess(
+        action: (AsyncResult.Success<T>) -> Unit): AsyncResult<T>
+{
     fold(action, {}, {})
     return this
 }
@@ -200,7 +202,9 @@ fun <T> AsyncResult<T>.doOnSuccess(action: (AsyncResult.Success<T>) -> Unit): As
 /**
  * If `this` is `AsyncResult.Loading` then invokes `action` on `this`. Otherwise does nothing.
  */
-fun <T> AsyncResult<T>.doOnLoading(action: (AsyncResult.Loading<T>) -> Unit): AsyncResult<T> {
+fun <T> AsyncResult<T>.doOnLoading(
+        action: (AsyncResult.Loading<T>) -> Unit): AsyncResult<T>
+{
     fold({}, action, {})
     return this
 }
@@ -208,7 +212,9 @@ fun <T> AsyncResult<T>.doOnLoading(action: (AsyncResult.Loading<T>) -> Unit): As
 /**
  * If `this` is `AsyncResult.Failure` then invokes `action` on `this`. Otherwise does nothing.
  */
-fun <T> AsyncResult<T>.doOnFailure(action: (AsyncResult.Failure<T>) -> Unit): AsyncResult<T> {
+fun <T> AsyncResult<T>.doOnFailure(
+        action: (AsyncResult.Failure<T>) -> Unit
+): AsyncResult<T> {
     fold({}, {}, action)
     return this
 }
