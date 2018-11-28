@@ -9,8 +9,8 @@ title: AsyncResult
 ```
 sealed class AsyncResult<out T> {
     data class Success<T>(val value: T)
-    data class Failure<T>(val error: Throwable, val cachedValue: T? = null)
     data class Loading<T>(val cachedValue: T? = null)
+    data class Failure<T>(val error: Throwable, val cachedValue: T? = null)
 }
 ```
 
@@ -32,12 +32,10 @@ fun handleResult(result: AsyncResult<MyData>): MyViewState
   return result
       .map { MyViewState.from(it) }
       .onLoading {
-        it.try()
+        it.useCachedValue()
       }
       .onError(IOException::class) {
-        map {
-          it.tryOr(NoConnectionViewState)
-        }
+        map { it.useCachedValue().or(NoConnectionViewState) }
       }
 }
 ```
