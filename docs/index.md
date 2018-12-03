@@ -40,9 +40,9 @@ Here's a fairly standard scenario when making an HTTP request:
 fun handleResult(result: AsyncResult<MyData>): MyViewState
   return result
       .map { MyViewState.from(it) }
-      .onLoading { it.useCachedValue().or(LoadingViewState) }
+      .onLoading { it.useCachedValue().or(LoadingResult) }
       .onError(IOException::class) {
-        map { it.useCachedValue().or(NoConnectionViewState) }
+        map { it.useCachedValue().or(NoConnectionResult) }
       }
       .get()
 }
@@ -54,18 +54,19 @@ We can also filter on more specific errors. For example, consider this scenario:
 
 1. If the user is authenticated, show account details.
 2. If the user got their credentials wrong, show the login state again.
-3. If there's a network error, show a Snackbar.
+3. If there's a network error, show a Snackbar with a retry option.
 
 ```kotlin
 fun handleResult(result: AsyncResult<Account>): MyViewState
   return result
       .map { AccountViewState.from(it) }
       .onError(HttpException::class) {
-        map { SignedOutViewState } whenever { it.code() == 401 }
+        map { SignedOutResult } whenever { it.code() == 401 }
       }
-      .onError(IOException::class) {
-        map { showSnackbar() }
+      .doOnError(IOException::class) {
+        action { showRetrySnackbar() }
       }
+      .onFailure { it.useCachedValue().or(ErrorResult) }
       .get()
 }
 ```
