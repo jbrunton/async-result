@@ -237,20 +237,43 @@ fun <T> AsyncResult<T>.doOnFailure(
  */
 fun <T, E: Throwable> AsyncResult<T>.onError(
         klass: KClass<E>,
-        handler: ErrorHandler<T, E>.() -> Unit
-) = ErrorHandler<T, E>(klass).apply(handler).handle(this)
+        handler: ErrorMapHandler<T, E>.() -> Unit
+) = ErrorMapHandler<T, E>(klass).apply(handler).handle(this)
+
+/**
+ * Conditionally invokes action on [AsyncResult.Failure] results based on the value of [AsyncResult.Failure.error].
+ *
+ * For example, to perform an action on a network failure:
+ *
+ *     result.doOnError(IOException::class) {
+ *         action { showRetrySnackbar() }
+ *     }
+ *
+ * You can also filter conditionally:
+ *
+ *     result.onError(HttpException::class) {
+ *         action { showLoginPrompt() } whenever { it.code() == 401 }
+ *     }
+ *
+ * @param klass the error class to match on.
+ * @param handler the error handler to apply.
+ */
+fun <T, E: Throwable> AsyncResult<T>.doOnError(
+        klass: KClass<E>,
+        handler: ErrorActionHandler<T, E>.() -> Unit
+) = ErrorActionHandler<T, E>(klass).apply(handler).handle(this)
 
 /**
  * DSL builder for error handling - see [AsyncResult.onError] for usage.
  */
-class ErrorHandler<T, E: Throwable>(val klass: KClass<E>) {
+class ErrorMapHandler<T, E: Throwable>(val klass: KClass<E>) {
     var filter: (E) -> Boolean = { true }
 
     infix fun whenever(filter: (E) -> Boolean) = apply {
         this.filter = filter
     }
 
-    var transform: ((AsyncResult.Failure<T>) -> AsyncResult<T>) = { it }
+    var transform: (AsyncResult.Failure<T>) -> AsyncResult<T> = { it }
 
     infix fun map(transform: (AsyncResult.Failure<T>) -> AsyncResult<T>) = apply {
         this.transform = transform
@@ -266,6 +289,33 @@ class ErrorHandler<T, E: Throwable>(val klass: KClass<E>) {
                 }
             }
             else -> return result
+        }
+    }
+}
+
+/**
+ * DSL builder for error handling - see [AsyncResult.doOnError] for usage.
+ */
+class ErrorActionHandler<T, E: Throwable>(val klass: KClass<E>) {
+    var filter: (E) -> Boolean = { true }
+
+    infix fun whenever(filter: (E) -> Boolean) = apply {
+        this.filter = filter
+    }
+
+    var action: (AsyncResult.Failure<T>) -> Unit = { _ -> }
+
+    infix fun action(action: (AsyncResult.Failure<T>) -> Unit) = apply {
+        this.action = action
+    }
+
+    fun handle(result: AsyncResult<T>) {
+        when (result) {
+            is AsyncResult.Failure -> {
+                if (klass.isInstance(result.error) && filter(result.error as E)) {
+                    action(result)
+                }
+            }
         }
     }
 }
