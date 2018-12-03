@@ -40,10 +40,10 @@ Here's a fairly standard scenario when making an HTTP request:
 fun handleResult(result: AsyncResult<MyData>): MyViewState
   return result
       .map { MyViewState.from(it) }
-      .onLoading { it.useCachedValue() }
+      .onLoading { it.useCachedValue().or(LoadingViewState) }
       .onError(IOException::class) {
         map { it.useCachedValue().or(NoConnectionViewState) }
-      }
+      }.get()
 }
 ```
 
@@ -64,7 +64,7 @@ fun handleResult(result: AsyncResult<Account>): MyViewState
       }
       .onError(IOException::class) {
         map { showSnackbar() }
-      }
+      }.get()
 }
 ```
 
