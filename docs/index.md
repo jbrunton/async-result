@@ -43,7 +43,8 @@ fun handleResult(result: AsyncResult<MyData>): MyViewState
       .onLoading { it.useCachedValue().or(LoadingViewState) }
       .onError(IOException::class) {
         map { it.useCachedValue().or(NoConnectionViewState) }
-      }.get()
+      }
+      .get()
 }
 ```
 
@@ -64,7 +65,8 @@ fun handleResult(result: AsyncResult<Account>): MyViewState
       }
       .onError(IOException::class) {
         map { showSnackbar() }
-      }.get()
+      }
+      .get()
 }
 ```
 
