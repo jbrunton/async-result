@@ -114,6 +114,16 @@ fun <T> AsyncResult<T>.or(other: AsyncResult<T>): AsyncResult<T> {
 }
 
 /**
+ * Returns `this` if the result is [AsyncResult.Success]. Returns `AsyncResult.Success(value)` otherwise.
+ */
+fun <T> AsyncResult<T>.or(value: T): AsyncResult<T> {
+    return when (this) {
+        is AsyncResult.Success -> this
+        else -> AsyncResult.success(value)
+    }
+}
+
+/**
  * Returns the result of applying `transform` to the values of the results.
  *
  * Result types are as follows:
