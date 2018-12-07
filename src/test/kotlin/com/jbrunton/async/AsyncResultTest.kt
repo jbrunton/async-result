@@ -156,6 +156,32 @@ class AsyncResultTest {
     }
 
     @Test
+    fun actsOnErrors() {
+        var x = 0
+        val result = failure(HTTPException(401), 1).doOnError(HTTPException::class) {
+            action { x = it.cachedValue!! + 1 }
+        }
+        assertThat(x).isEqualTo(2)
+    }
+
+    @Test
+    fun actsOnSpecificErrors() {
+        val result = failure(HTTPException(401), 2)
+        var x = 0
+        var y = 0
+
+        result.doOnError(HTTPException::class) {
+            action { x = it.cachedValue!! + 1 } whenever { it.statusCode == 401 }
+        }
+        val otherResult = result.doOnError(HTTPException::class) {
+            action { y = it.cachedValue!! + 1 } whenever { it.statusCode == 400 }
+        }
+
+        assertThat(x).isEqualTo(3)
+        assertThat(y).isEqualTo(0)
+    }
+
+    @Test
     fun zipsSuccesses() {
         val result = success(2).zipWith(success(3)) { x, y -> x * y }
         assertThat(result).isEqualTo(AsyncResult.Success(6))
