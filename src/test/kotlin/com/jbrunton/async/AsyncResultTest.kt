@@ -233,6 +233,9 @@ class AsyncResultTest {
     fun testOrOperation() {
         assertThat(loading(1).or(success(2))).isEqualTo(success(2))
         assertThat(success(1).or(success(2))).isEqualTo(success(1))
+
+        assertThat(loading(1).or(2)).isEqualTo(success(2))
+        assertThat(success(1).or(2)).isEqualTo(success(1))
     }
 
     private fun success(value: Int): AsyncResult.Success<Int> {
