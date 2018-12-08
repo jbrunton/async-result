@@ -135,7 +135,7 @@ class AsyncResultTest {
     @Test
     fun transformsErrors() {
         val result = failure(HTTPException(401), 1).onError(HTTPException::class) {
-            map { AsyncResult.Success(it.get() * 2) }
+            map { it.get() * 2 }
         }
         assertThat(result).isEqualTo(AsyncResult.Success(2))
     }
@@ -145,10 +145,10 @@ class AsyncResultTest {
         val result = failure(HTTPException(401), 2)
 
         val transformedResult = result.onError(HTTPException::class) {
-            map { AsyncResult.Success(it.get() * 2) } whenever { it.statusCode == 401 }
+            map { it.get() * 2 } whenever { it.statusCode == 401 }
         }
         val otherResult = result.onError(HTTPException::class) {
-            map { AsyncResult.Success(it.get() * 2) } whenever { it.statusCode == 400 }
+            map { it.get() * 2 } whenever { it.statusCode == 400 }
         }
 
         assertThat(transformedResult).isEqualTo(AsyncResult.Success(4))

@@ -13,11 +13,11 @@
 <p>Conditionally transforms <a href="-async-result/-failure/index.html">AsyncResult.Failure</a> results based on the value of <a href="-async-result/-failure/error.html">AsyncResult.Failure.error</a>.</p>
 <p>For example, to transform a network failure:</p>
 <pre><code>    result.onError(IOException::class) {
-        map { NoConnectionResult }
+        map { NoConnection }
     }</code></pre>
 <p>You can also filter conditionally:</p>
 <pre><code>    result.onError(HttpException::class) {
-        map { AuthFailureResult } whenever { it.code() == 401 }
+        map { AuthFailure } whenever { it.code() == 401 }
     }</code></pre>
 <h3>Parameters</h3>
 <p><a name="klass"></a>

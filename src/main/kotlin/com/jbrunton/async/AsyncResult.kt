@@ -233,13 +233,13 @@ fun <T> AsyncResult<T>.doOnFailure(
  * For example, to transform a network failure:
  *
  *     result.onError(IOException::class) {
- *         map { NoConnectionResult }
+ *         map { NoConnection }
  *     }
  *
  * You can also filter conditionally:
  *
  *     result.onError(HttpException::class) {
- *         map { AuthFailureResult } whenever { it.code() == 401 }
+ *         map { AuthFailure } whenever { it.code() == 401 }
  *     }
  *
  * @param klass the error class to match on.
@@ -260,17 +260,17 @@ class ErrorHandler<T, E: Throwable>(val klass: KClass<E>) {
         this.filter = filter
     }
 
-    var transform: ((AsyncResult.Failure<T>) -> AsyncResult<T>) = { it }
+    lateinit var transform: ((AsyncResult.Failure<T>) -> T)
 
-    infix fun map(transform: (AsyncResult.Failure<T>) -> AsyncResult<T>) = apply {
+    infix fun map(transform: (AsyncResult.Failure<T>) -> T) = apply {
         this.transform = transform
     }
 
-    fun handle(result: AsyncResult<T>): AsyncResult<T> {
+    internal fun handle(result: AsyncResult<T>): AsyncResult<T> {
         when (result) {
             is AsyncResult.Failure -> {
                 if (klass.isInstance(result.error) && filter(result.error as E)) {
-                    return transform(result)
+                    return AsyncResult.success(transform(result))
                 } else {
                     return result
                 }
