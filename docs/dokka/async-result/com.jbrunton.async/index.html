@@ -13,6 +13,13 @@
 <tbody>
 <tr>
 <td>
+<p><a href="-abstract-error-action-handler/index.html">AbstractErrorActionHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AbstractErrorActionHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
 <p><a href="-async-result/index.html">AsyncResult</a></p>
 </td>
 <td>
@@ -25,7 +32,7 @@
 <p><a href="-error-action-handler/index.html">ErrorActionHandler</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">ErrorActionHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span></code>
+<code><span class="keyword">class </span><span class="identifier">ErrorActionHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-abstract-error-action-handler/index.html"><span class="identifier">AbstractErrorActionHandler</span></a><span class="symbol">&lt;</span><a href="-error-action-handler/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-error-action-handler/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code>
 <p>DSL builder for error handling - see <a href="do-on-error.html">AsyncResult.doOnError</a> for usage.</p>
 </td>
 </tr>
@@ -34,7 +41,7 @@
 <p><a href="-error-map-handler/index.html">ErrorMapHandler</a></p>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">ErrorMapHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span></code>
+<code><span class="keyword">class </span><span class="identifier">ErrorMapHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-abstract-error-action-handler/index.html"><span class="identifier">AbstractErrorActionHandler</span></a><span class="symbol">&lt;</span><a href="-error-map-handler/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-error-map-handler/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code>
 <p>DSL builder for error handling - see <a href="on-error.html">AsyncResult.onError</a> for usage.</p>
 </td>
 </tr>

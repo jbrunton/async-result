@@ -233,13 +233,13 @@ fun <T> AsyncResult<T>.doOnFailure(
  * For example, to transform a network failure:
  *
  *     result.onError(IOException::class) {
- *         map { NoConnectionResult }
+ *         map { NoConnection }
  *     }
  *
  * You can also filter conditionally:
  *
  *     result.onError(HttpException::class) {
- *         map { AuthFailureResult } whenever { it.code() == 401 }
+ *         map { AuthFailure } whenever { it.code() == 401 }
  *     }
  *
  * @param klass the error class to match on.

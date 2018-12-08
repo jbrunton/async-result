@@ -46,7 +46,7 @@
 <p><a href="transform.html">transform</a></p>
 </td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">transform</span><span class="symbol">: </span><span class="symbol">(</span><a href="../-async-result/-failure/index.html"><span class="identifier">Failure</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">transform</span><span class="symbol">: </span><span class="symbol">(</span><a href="../-async-result/-failure/index.html"><span class="identifier">Failure</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a></code></td>
 </tr>
 </tbody>
 </table>
@@ -55,17 +55,10 @@
 <tbody>
 <tr>
 <td>
-<p><a href="handle.html">handle</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">handle</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async.ErrorHandler$handle(com.jbrunton.async.AsyncResult((com.jbrunton.async.ErrorHandler.T)))/result">result</span><span class="symbol">:</span>&nbsp;<a href="../-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
-</tr>
-<tr>
-<td>
 <p><a href="map.html">map</a></p>
 </td>
 <td>
-<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">map</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async.ErrorHandler$map(kotlin.Function1((com.jbrunton.async.AsyncResult.Failure((com.jbrunton.async.ErrorHandler.T)), com.jbrunton.async.AsyncResult(()))))/transform">transform</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-async-result/-failure/index.html"><span class="identifier">Failure</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-async-result/index.html"><span class="identifier">AsyncResult</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ErrorHandler</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code></td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">map</span><span class="symbol">(</span><span class="identifier" id="com.jbrunton.async.ErrorHandler$map(kotlin.Function1((com.jbrunton.async.AsyncResult.Failure((com.jbrunton.async.ErrorHandler.T)), )))/transform">transform</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-async-result/-failure/index.html"><span class="identifier">Failure</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ErrorHandler</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
