@@ -133,22 +133,45 @@ class AsyncResultTest {
     }
 
     @Test
-    fun transformsErrors() {
+    fun usesCachedValuesForErrors() {
         val result = failure(HTTPException(401), 1).onError(HTTPException::class) {
-            map { it.get() * 2 }
+            use { it.get() * 2 }
         }
         assertThat(result).isEqualTo(AsyncResult.Success(2))
     }
 
     @Test
-    fun transformsSpecificErrors() {
+    fun usesCachedValuesForSpecificErrors() {
         val result = failure(HTTPException(401), 2)
 
         val transformedResult = result.onError(HTTPException::class) {
-            map { it.get() * 2 } whenever { it.statusCode == 401 }
+            use { it.get() * 2 } whenever { it.statusCode == 401 }
         }
         val otherResult = result.onError(HTTPException::class) {
-            map { it.get() * 2 } whenever { it.statusCode == 400 }
+            use { it.get() * 2 } whenever { it.statusCode == 400 }
+        }
+
+        assertThat(transformedResult).isEqualTo(AsyncResult.Success(4))
+        assertThat(otherResult).isEqualTo(result)
+    }
+
+    @Test
+    fun mapsErrors() {
+        val result = failure(HTTPException(401), 1).onError(HTTPException::class) {
+            map { success(it.get() * 2) }
+        }
+        assertThat(result).isEqualTo(AsyncResult.Success(2))
+    }
+
+    @Test
+    fun mapSpecificErrors() {
+        val result = failure(HTTPException(401), 2)
+
+        val transformedResult = result.onError(HTTPException::class) {
+            map { success(it.get() * 2) } whenever { it.statusCode == 401 }
+        }
+        val otherResult = result.onError(HTTPException::class) {
+            map { success(it.get() * 2) } whenever { it.statusCode == 400 }
         }
 
         assertThat(transformedResult).isEqualTo(AsyncResult.Success(4))
@@ -158,7 +181,7 @@ class AsyncResultTest {
     @Test
     fun actsOnErrors() {
         var x = 0
-        val result = failure(HTTPException(401), 1).doOnError(HTTPException::class) {
+        failure(HTTPException(401), 1).doOnError(HTTPException::class) {
             action { x = it.cachedValue!! + 1 }
         }
         assertThat(x).isEqualTo(2)
@@ -173,7 +196,7 @@ class AsyncResultTest {
         result.doOnError(HTTPException::class) {
             action { x = it.cachedValue!! + 1 } whenever { it.statusCode == 401 }
         }
-        val otherResult = result.doOnError(HTTPException::class) {
+        result.doOnError(HTTPException::class) {
             action { y = it.cachedValue!! + 1 } whenever { it.statusCode == 400 }
         }
 
