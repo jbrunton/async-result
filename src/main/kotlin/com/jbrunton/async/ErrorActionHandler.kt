@@ -12,7 +12,7 @@ class ErrorActionHandler<T, E: Throwable>(klass: KClass<E>) : AbstractErrorActio
         this.action = action
     }
 
-    fun handle(result: AsyncResult<T>) {
+    internal fun handle(result: AsyncResult<T>): AsyncResult<T> {
         when (result) {
             is AsyncResult.Failure -> {
                 if (klass.isInstance(result.error) && filter(result.error as E)) {
@@ -20,5 +20,6 @@ class ErrorActionHandler<T, E: Throwable>(klass: KClass<E>) : AbstractErrorActio
                 }
             }
         }
+        return result
     }
 }
