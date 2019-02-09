@@ -261,6 +261,84 @@ class AsyncResultTest {
         assertThat(success(1).or(2)).isEqualTo(success(1))
     }
 
+    @Test
+    fun testZip2() {
+        val result = AsyncResult.zip(
+                success(1),
+                success(2)
+        ) { x, y ->
+            x + y
+        }
+        assertThat(result).isEqualTo(success(3))
+    }
+
+    @Test
+    fun testZip3() {
+        val result = AsyncResult.zip(
+                success(1),
+                success(2),
+                success(3)
+        ) { x, y, z ->
+            x + y + z
+        }
+        assertThat(result).isEqualTo(success(6))
+    }
+
+    @Test
+    fun testZip4() {
+        val result = AsyncResult.zip(
+                success(1),
+                success(2),
+                success(3),
+                success(4)
+        ) { u, v, x, y ->
+            u + v + x + y
+        }
+        assertThat(result).isEqualTo(success(10))
+    }
+
+    @Test
+    fun testZip5() {
+        val result = AsyncResult.zip(
+                success(1),
+                success(2),
+                success(3),
+                success(4),
+                success(5)
+        ) { u, v, x, y, z ->
+            u + v + x + y + z
+        }
+        assertThat(result).isEqualTo(success(15))
+    }
+
+    @Test
+    fun testZip5Loading() {
+        val result = AsyncResult.zip(
+                success(1),
+                success(2),
+                success(3),
+                loading(4),
+                success(5)
+        ) { u, v, x, y, z ->
+            u + v + x + y + z
+        }
+        assertThat(result).isEqualTo(loading(15))
+    }
+
+    @Test
+    fun testZip5Failure() {
+        val result = AsyncResult.zip(
+                success(1),
+                success(2),
+                success(3),
+                failure(error, 4),
+                success(5)
+        ) { u, v, x, y, z ->
+            u + v + x + y + z
+        }
+        assertThat(result).isEqualTo(failure(error, 15))
+    }
+
     private fun success(value: Int): AsyncResult.Success<Int> {
         return AsyncResult.Success(value)
     }
