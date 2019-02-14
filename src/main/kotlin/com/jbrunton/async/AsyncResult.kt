@@ -194,13 +194,24 @@ fun <S, T, U> AsyncResult<S>.zipWith(other: AsyncResult<T>, transform: (S, T) ->
 }
 
 /**
- * Returns a result of the same type as `this`, transforming the value.
+ * Returns an [AsyncResult] of the same kind as `this`, transforming the value (or cached value if there is one).
  */
 fun <S, T> AsyncResult<S>.map(transform: (S) -> T): AsyncResult<T> {
     return when (this) {
         is AsyncResult.Success -> AsyncResult.Success(transform(this.value))
         is AsyncResult.Loading -> AsyncResult.Loading(this.cachedValue?.let(transform))
         is AsyncResult.Failure -> AsyncResult.Failure(this.error, this.cachedValue?.let(transform))
+    }
+}
+
+/**
+ * Returns an [AsyncResult] result by applying `transform` to the value (or cached value if there is one).
+ */
+fun <S, T> AsyncResult<S>.flatMap(transform: (S) -> AsyncResult<T>): AsyncResult<T> {
+    return when (this) {
+        is AsyncResult.Success -> transform(this.value)
+        is AsyncResult.Loading -> this.cachedValue?.let(transform) ?: AsyncResult.loading(null)
+        is AsyncResult.Failure -> this.cachedValue?.let(transform) ?: AsyncResult.failure(this.error, null)
     }
 }
 

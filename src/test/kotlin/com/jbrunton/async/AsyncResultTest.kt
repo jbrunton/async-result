@@ -1,6 +1,7 @@
 package com.jbrunton.async
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.fail
 import org.junit.Test
 import javax.xml.ws.http.HTTPException
 
@@ -67,6 +68,23 @@ class AsyncResultTest {
     fun transformsFailureResults() {
         val result = failure(error, 2).map { it * 2 }
         assertThat(result.get()).isEqualTo(4)
+    }
+
+    @Test
+    fun testFlatMapSuccess() {
+        assertThat(success(1).flatMap { success(it + 2) }).isEqualTo(success(3))
+    }
+
+    @Test
+    fun testFlatMapLoading() {
+        assertThat(loading(1).flatMap { success(it + 2) }).isEqualTo(success(3))
+        assertThat(loading(null).flatMap { success(it + 2) }).isEqualTo(loading(null))
+    }
+
+    @Test
+    fun testFlatMapFailure() {
+        assertThat(failure(error, 1).flatMap { success(it + 2) }).isEqualTo(success(3))
+        assertThat(failure(error, null).flatMap { success(it + 2) }).isEqualTo(failure(error, null))
     }
 
     @Test
